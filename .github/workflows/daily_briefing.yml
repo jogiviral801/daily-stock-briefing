@@ -8,6 +8,9 @@ on:
 
   workflow_dispatch:          # Allows you to trigger a test run manually from GitHub
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true   # Fixes Node.js deprecation warning
+
 jobs:
   send-briefing:
     runs-on: ubuntu-latest
@@ -21,10 +24,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: "pip"
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install anthropic yfinance requests
 
       - name: Run daily stock briefing
         env:
